@@ -51,7 +51,7 @@ class TaxonomyResource extends Resource
                 Tables\Actions\Action::make('exportAsJson')
                 ->label(__('Export'))
                 ->action(function ($record) {
-                    $name = Str::slug($record->name, '_');
+                    $name = Str::slug($record->id, '_');
                     return response()->streamDownload(function () use ($record) {
                         $return = $record->attributesToArray();
                         echo json_encode($return, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
