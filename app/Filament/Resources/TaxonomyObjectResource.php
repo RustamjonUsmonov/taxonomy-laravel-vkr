@@ -23,7 +23,7 @@ class TaxonomyObjectResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Textarea::make('name')
+                Forms\Components\TextInput::make('name')
                     ->columnSpanFull(),
             ]);
     }
@@ -57,7 +57,7 @@ class TaxonomyObjectResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                //Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([

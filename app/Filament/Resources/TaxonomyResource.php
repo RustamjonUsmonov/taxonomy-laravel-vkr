@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class TaxonomyResource extends Resource
 {
@@ -47,6 +48,18 @@ class TaxonomyResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('exportAsJson')
+                ->label(__('Export'))
+                ->action(function ($record) {
+                    $name = Str::slug($record->name, '_');
+                    return response()->streamDownload(function () use ($record) {
+                        $return = $record->attributesToArray();
+                        echo json_encode($return, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
+                    }, $name . '.json');
+                })
+                ->tooltip(__('Export'))
+                ->icon('heroicon-o-arrow-down-tray')
+                ->color('primary'),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([

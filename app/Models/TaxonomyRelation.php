@@ -11,6 +11,7 @@ class TaxonomyRelation extends Model
     use HasFactory;
 
     protected $table = 'taxonomies_relations';
+    public $timestamps = false;
 
     protected $fillable = [
         'similarity',
